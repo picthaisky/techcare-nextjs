@@ -1,213 +1,293 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Users, Award, Clock, CheckCircle, Target, Heart } from 'lucide-react'
-import { STATS } from '@/lib/constants'
-import SectionTitle from '@/components/common/SectionTitle'
+import { COMPANY_STATS, ANIMATION_CONFIG } from '@/lib/constants'
+import { formatNumber, staggerDelay } from '@/lib/utils'
+import { Users, Clock, Award, TrendingUp, Target, Shield, Heart, Zap } from 'lucide-react'
 
-interface StatCardProps {
-  stat: {
-    icon: React.ReactNode
-    number: string
-    label: string
-    description: string
+const aboutFeatures = [
+  {
+    icon: <Target className="w-6 h-6" />,
+    title: 'วิสัยทัศน์',
+    description: 'เป็นผู้นำด้านการบริการเทคโนโลยีที่ลูกค้าไว้วางใจ พร้อมสร้างสรรค์นวัตกรรมใหม่ๆ'
+  },
+  {
+    icon: <Shield className="w-6 h-6" />,
+    title: 'ภารกิจ',
+    description: 'มุ่งมั่นพัฒนาและให้บริการด้านเทคโนโลยีอย่างครบวงจร ด้วยคุณภาพที่เป็นเลิศ'
+  },
+  {
+    icon: <Heart className="w-6 h-6" />,
+    title: 'ค่านิยม',
+    description: 'ใส่ใจลูกค้าเป็นอันดับหนึ่ง พัฒนาอย่างต่อเนื่อง และรักษามาตรฐานสูงสุด'
+  },
+  {
+    icon: <Zap className="w-6 h-6" />,
+    title: 'นวัตกรรม',
+    description: 'นำเทคโนโลยีใหม่ล่าสุดมาใช้ เพื่อให้บริการที่ดีที่สุดแก่ลูกค้า'
   }
-  index: number
-}
+]
 
-function StatCard({ stat, index }: StatCardProps) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.8 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
-      whileHover={{ 
-        y: -5,
-        transition: { duration: 0.3 }
-      }}
-      className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 text-center group border border-gray-100"
-    >
-      <div className="inline-flex items-center justify-center w-16 h-16 mb-6 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-2xl text-white group-hover:scale-110 transition-transform duration-300">
-        {stat.icon}
-      </div>
-      <h3 className="text-4xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors duration-300">
-        {stat.number}
-      </h3>
-      <h4 className="text-lg font-semibold text-gray-700 mb-3">{stat.label}</h4>
-      <p className="text-gray-600 leading-relaxed">{stat.description}</p>
-    </motion.div>
-  )
-}
+const teamMembers = [
+  {
+    name: 'คุณสมชาย จันทร์เพ็ญ',
+    position: 'ผู้อำนวยการ',
+    experience: '15+ ปี',
+    specialty: 'ระบบเครือข่าย & การจัดการ'
+  },
+  {
+    name: 'คุณสมหญิง วงศ์ใหญ่',
+    position: 'หัวหน้าช่างเทคนิค',
+    experience: '12+ ปี',
+    specialty: 'ซ่อมฮาร์ดแวร์ & กู้ข้อมูล'
+  },
+  {
+    name: 'คุณวิทยา นักพัฒนา',
+    position: 'ที่ปรึกษาระบบ',
+    experience: '10+ ปี',
+    specialty: 'ระบบรักษาความปลอดภัย'
+  },
+  {
+    name: 'คุณปิยะดา เทคโนโลยี',
+    position: 'ฝ่ายบริการลูกค้า',
+    experience: '8+ ปี',
+    specialty: 'ประสานงาน & สนับสนุน'
+  }
+]
 
 export default function AboutSection() {
-  const stats = [
-    {
-      icon: <Users className="w-8 h-8" />,
-      number: `${STATS.customers.toLocaleString()}+`,
-      label: 'ลูกค้าที่พึงพอใจ',
-      description: 'ได้รับความไว้วางใจจากลูกค้ามากกว่า 1,000 ราย'
-    },
-    {
-      icon: <Award className="w-8 h-8" />,
-      number: `${STATS.experience}+`,
-      label: 'ปีประสบการณ์',
-      description: 'ความเชี่ยวชาญด้านเทคโนโลยีมากกว่า 10 ปี'
-    },
-    {
-      icon: <Clock className="w-8 h-8" />,
-      number: STATS.availability,
-      label: 'บริการตลอดเวลา',
-      description: 'พร้อมให้บริการและแก้ไขปัญหาฉุกเฉิน'
-    },
-    {
-      icon: <CheckCircle className="w-8 h-8" />,
-      number: `${STATS.quality}%`,
-      label: 'รับประกันคุณภาพ',
-      description: 'มั่นใจในคุณภาพงานและบริการของเรา'
-    }
-  ]
-
-  const features = [
-    {
-      icon: <Target className="w-6 h-6 text-blue-500" />,
-      title: 'ความเชี่ยวชาญ',
-      description: 'ทีมงานมืออาชีพที่มีประสบการณ์สูงในด้านเทคโนโลยี'
-    },
-    {
-      icon: <Heart className="w-6 h-6 text-red-500" />,
-      title: 'ใส่ใจลูกค้า',
-      description: 'ให้ความสำคัญกับความต้องการและความพึงพอใจของลูกค้า'
-    },
-    {
-      icon: <CheckCircle className="w-6 h-6 text-green-500" />,
-      title: 'คุณภาพสูง',
-      description: 'ใช้อะไหล่แท้และรับประกันคุณภาพการซ่อมทุกครั้ง'
-    }
-  ]
-
   return (
-    <section id="about" className="py-20 bg-gradient-to-b from-white to-gray-50">
-      <div className="container mx-auto px-4">
-        <SectionTitle
-          title="เกี่ยวกับเรา"
-          subtitle="ผู้เชี่ยวชาญด้านเทคโนโลยีที่คุณไว้วางใจได้"
-          titleClassName="text-gray-900"
-          subtitleClassName="text-gray-600"
-        />
+    <section 
+      id="about" 
+      className="relative py-20 overflow-hidden bg-white"
+    >
+      {/* Background Decorations */}
+      <div className="absolute top-0 left-0 -translate-x-48 -translate-y-48 rounded-full opacity-50 w-96 h-96 bg-gradient-to-br from-blue-100 to-cyan-50" />
+      <div className="absolute bottom-0 right-0 translate-x-40 translate-y-40 rounded-full opacity-50 w-80 h-80 bg-gradient-to-tl from-purple-100 to-blue-50" />
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-20">
-          {/* Content */}
+      <div className="container relative px-4 mx-auto">
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: ANIMATION_CONFIG.duration.slow }}
+          className="mb-16 text-center"
+        >
+          <motion.div
+            initial={{ scale: 0, rotate: -180 }}
+            whileInView={{ scale: 1, rotate: 0 }}
+            viewport={{ once: true }}
+            transition={{ 
+              duration: 0.6,
+              delay: 0.2,
+              type: "spring",
+              stiffness: 120
+            }}
+            className="inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg bg-gradient-to-r from-blue-500 to-cyan-400 rounded-2xl"
+          >
+            <Users className="w-8 h-8 text-white" />
+          </motion.div>
+
+          <h2 className="mb-6 text-4xl font-bold text-gray-900 md:text-5xl lg:text-6xl">
+            เกี่ยวกับเรา
+          </h2>
+          
+          <motion.div
+            className="w-24 h-1 mx-auto mb-8 rounded-full bg-gradient-to-r from-blue-500 to-cyan-400"
+            initial={{ width: 0 }}
+            whileInView={{ width: 96 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+          />
+        </motion.div>
+
+        {/* Company Story */}
+        <div className="grid grid-cols-1 gap-12 mb-20 lg:grid-cols-2">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="space-y-8"
+            transition={{ duration: ANIMATION_CONFIG.duration.slow }}
           >
-            <div>
-              <h3 className="text-3xl font-bold text-gray-900 mb-6">
-                TechCare Solutions
-              </h3>
-              <div className="space-y-6 text-lg text-gray-600 leading-relaxed">
-                <p>
-                  เราคือบริษัทผู้เชี่ยวชาญด้านเทคโนโลยีสารสนเทศที่มีประสบการณ์มากกว่า 10 ปี 
-                  ในการให้บริการซ่อมและติดตั้งระบบคอมพิวเตอร์
-                </p>
-                <p>
-                  ด้วยทีมงานมืออาชีพและเครื่องมือที่ทันสมัย เราพร้อมให้บริการลูกค้าทั้งรายบุคคล
-                  และองค์กรด้วยความใส่ใจในทุกรายละเอียด
-                </p>
-                <p>
-                  เราเชื่อว่าเทคโนโลยีควรทำให้ชีวิตง่ายขึ้น ไม่ใช่ยุ่งยากซับซ้อน 
-                  นั่นคือเหตุผลที่เรามุ่งมั่นให้บริการที่เข้าใจง่ายและแก้ปัญหาได้จริง
-                </p>
-              </div>
-            </div>
-
-            {/* Features */}
-            <div className="space-y-4">
-              {features.map((feature, index) => (
-                <motion.div
-                  key={feature.title}
-                  initial={{ opacity: 0, x: -30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className="flex items-start space-x-4 p-4 bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-300"
-                >
-                  <div className="flex-shrink-0 w-12 h-12 bg-gray-50 rounded-lg flex items-center justify-center">
-                    {feature.icon}
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900 mb-1">{feature.title}</h4>
-                    <p className="text-gray-600 text-sm leading-relaxed">{feature.description}</p>
-                  </div>
-                </motion.div>
-              ))}
+            <h3 className="mb-6 text-3xl font-bold text-gray-900 md:text-4xl">
+              เรื่องราวของเรา
+            </h3>
+            <div className="space-y-6 text-lg leading-relaxed text-gray-700">
+              <p>
+                <span className="font-semibold text-blue-600">TechCare Solutions</span> ก่อตั้งขึ้นในปี 2014 
+                ด้วยความมุ่งมั่นที่จะให้บริการด้านเทคโนโลยีที่มีคุณภาพและเข้าถึงได้ง่าย
+              </p>
+              <p>
+                เราเริ่มต้นจากทีมงานเล็กๆ ที่มีความหลงใหลในเทคโนโลยี และต้องการแบ่งปัน
+                ความรู้ความสามารถเพื่อช่วยเหลือผู้คนในการแก้ไขปัญหาด้านคอมพิวเตอร์และเทคโนโลยี
+              </p>
+              <p>
+                วันนี้ เราได้เติบโตขึ้นเป็นบริษัทที่มีทีมงานมืออาชีพกว่า 15 คน 
+                พร้อมให้บริการลูกค้าทั่วประเทศไทยด้วยความใส่ใจและคุณภาพที่ยอดเยียม
+              </p>
             </div>
           </motion.div>
 
-          {/* Image/Visual */}
+          {/* Company Stats */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="relative"
+            transition={{ duration: ANIMATION_CONFIG.duration.slow }}
+            className="grid grid-cols-2 gap-6"
           >
-            <div className="aspect-square bg-gradient-to-br from-blue-500 via-purple-500 to-cyan-400 rounded-3xl shadow-2xl relative overflow-hidden">
-              {/* Pattern Overlay */}
-              <div className="absolute inset-0 opacity-20">
-                <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=&quot;40&quot; height=&quot;40&quot; viewBox=&quot;0 0 40 40&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;%3E%3Cg fill=&quot;%23ffffff&quot; fill-opacity=&quot;0.3&quot;%3E%3Cpath d=&quot;M20 20c0-5.5-4.5-10-10-10s-10 4.5-10 10 4.5 10 10 10 10-4.5 10-10zm10 0c0-5.5-4.5-10-10-10s-10 4.5-10 10 4.5 10 10 10 10-4.5 10-10z&quot;/&gt;%3C/g%3E%3C/svg%3E')]" />
-              </div>
-              
-              {/* Tech Icons */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="grid grid-cols-3 gap-8 p-8">
-                  {[
-                    { icon: <Users className="w-12 h-12" />, delay: 0 },
-                    { icon: <Target className="w-12 h-12" />, delay: 0.2 },
-                    { icon: <Award className="w-12 h-12" />, delay: 0.4 },
-                    { icon: <Heart className="w-12 h-12" />, delay: 0.6 },
-                    { icon: <CheckCircle className="w-12 h-12" />, delay: 0.8 },
-                    { icon: <Clock className="w-12 h-12" />, delay: 1 },
-                  ].map((item, index) => (
-                    <motion.div
-                      key={index}
-                      initial={{ opacity: 0, scale: 0 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.6, delay: item.delay }}
-                      className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center text-white hover:bg-white/30 transition-colors duration-300"
-                    >
-                      {item.icon}
-                    </motion.div>
-                  ))}
+            {[
+              {
+                icon: <Users className="w-8 h-8" />,
+                number: `${formatNumber(COMPANY_STATS.customers)}+`,
+                label: 'ลูกค้าที่ไว้วางใจ',
+                color: 'text-blue-600'
+              },
+              {
+                icon: <Clock className="w-8 h-8" />,
+                number: `${COMPANY_STATS.experience}+`,
+                label: 'ปีของประสบการณ์',
+                color: 'text-green-600'
+              },
+              {
+                icon: <Award className="w-8 h-8" />,
+                number: `${COMPANY_STATS.quality}%`,
+                label: 'ความพึงพอใจ',
+                color: 'text-purple-600'
+              },
+              {
+                icon: <TrendingUp className="w-8 h-8" />,
+                number: COMPANY_STATS.availability,
+                label: 'พร้อมให้บริการ',
+                color: 'text-cyan-600'
+              }
+            ].map((stat, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ 
+                  duration: 0.5,
+                  delay: staggerDelay(index, 0.1)
+                }}
+                whileHover={{ scale: 1.05 }}
+                className="p-6 text-center transition-all duration-300 bg-white border border-gray-100 shadow-lg rounded-2xl hover:shadow-xl"
+              >
+                <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-4 ${stat.color} bg-opacity-10`}>
+                  <div className={stat.color}>
+                    {stat.icon}
+                  </div>
                 </div>
-              </div>
-            </div>
-
-            {/* Floating Elements */}
-            <motion.div
-              animate={{ y: [0, -20, 0] }}
-              transition={{ duration: 3, repeat: Infinity }}
-              className="absolute -top-6 -left-6 w-24 h-24 bg-yellow-400 rounded-full opacity-20"
-            />
-            <motion.div
-              animate={{ y: [0, 20, 0] }}
-              transition={{ duration: 4, repeat: Infinity, delay: 1 }}
-              className="absolute -bottom-6 -right-6 w-32 h-32 bg-pink-400 rounded-full opacity-20"
-            />
+                <div className="mb-2 text-3xl font-bold text-gray-900">
+                  {stat.number}
+                </div>
+                <div className="font-medium text-gray-600">
+                  {stat.label}
+                </div>
+              </motion.div>
+            ))}
           </motion.div>
         </div>
 
-        {/* Statistics */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {stats.map((stat, index) => (
-            <StatCard key={stat.label} stat={stat} index={index} />
-          ))}
-        </div>
+        {/* Company Values */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: ANIMATION_CONFIG.duration.slow }}
+          className="mb-20"
+        >
+          <div className="mb-12 text-center">
+            <h3 className="mb-4 text-3xl font-bold text-gray-900 md:text-4xl">
+              หลักการทำงานของเรา
+            </h3>
+            <div className="w-20 h-1 mx-auto rounded-full bg-gradient-to-r from-blue-500 to-cyan-400" />
+          </div>
+
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+            {aboutFeatures.map((feature, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ 
+                  duration: 0.6,
+                  delay: staggerDelay(index, 0.1)
+                }}
+                whileHover={{ y: -5 }}
+                className="p-6 text-center transition-all duration-300 border border-gray-100 shadow-lg bg-gradient-to-br from-white to-gray-50 rounded-2xl hover:shadow-xl group"
+              >
+                <motion.div
+                  className="inline-flex items-center justify-center mb-4 text-white transition-transform w-14 h-14 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-2xl group-hover:scale-110"
+                  whileHover={{ rotate: [0, -5, 5, 0] }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {feature.icon}
+                </motion.div>
+                <h4 className="mb-3 text-xl font-bold text-gray-900 transition-colors group-hover:text-blue-600">
+                  {feature.title}
+                </h4>
+                <p className="leading-relaxed text-gray-600">
+                  {feature.description}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Team Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: ANIMATION_CONFIG.duration.slow }}
+        >
+          <div className="mb-12 text-center">
+            <h3 className="mb-4 text-3xl font-bold text-gray-900 md:text-4xl">
+              ทีมงานมืออาชีพ
+            </h3>
+            <div className="w-20 h-1 mx-auto mb-6 rounded-full bg-gradient-to-r from-blue-500 to-cyan-400" />
+            <p className="max-w-3xl mx-auto text-lg text-gray-600">
+              ทีมงานของเราประกอบด้วยผู้เชี่ยวชาญด้านต่างๆ ที่มีประสบการณ์และความเชี่ยวชาญสูง
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+            {teamMembers.map((member, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ 
+                  duration: 0.6,
+                  delay: staggerDelay(index, 0.1)
+                }}
+                whileHover={{ y: -8 }}
+                className="p-6 text-center transition-all duration-300 bg-white border border-gray-100 shadow-lg rounded-2xl hover:shadow-xl group"
+              >
+                <div className="flex items-center justify-center w-20 h-20 mx-auto mb-4 text-2xl font-bold text-white transition-transform rounded-full bg-gradient-to-br from-blue-500 to-cyan-400 group-hover:scale-110">
+                  {member.name.charAt(2)}
+                </div>
+                <h4 className="mb-1 text-xl font-bold text-gray-900 transition-colors group-hover:text-blue-600">
+                  {member.name}
+                </h4>
+                <div className="mb-2 font-semibold text-blue-600">
+                  {member.position}
+                </div>
+                <div className="mb-2 text-sm text-gray-500">
+                  ประสบการณ์: {member.experience}
+                </div>
+                <div className="text-sm leading-relaxed text-gray-600">
+                  {member.specialty}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
       </div>
     </section>
   )
