@@ -6,10 +6,11 @@ import ContactSection from '@/components/sections/ContactSection'
 export default function HomePage() {
   return (
     <>
-      <HeroSection />
+    <div className="p-4 text-white bg-red-500">Tailwind OK</div>
+      {/* <HeroSection />
       <ServicesSection />
       <AboutSection />
-      <ContactSection />
+      <ContactSection /> */}
     </>
   )
 }

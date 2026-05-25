@@ -1,6 +1,5 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@reference "tailwindcss";
+@import "tailwindcss";
 
 /* Fonts are provided via next/font in layout.tsx. Local @font-face removed to avoid 404s. */
 

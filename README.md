@@ -1,10 +1,12 @@
 # TechCare Solutions Website
 
-<div align="center">
+<p align="center">
   <img src="public/logo.svg" alt="TechCare Solutions" width="64" height="64">
-  <h3>บริษัทให้บริการเทคโนโลยีและซ่อมคอมพิวเตอร์</h3>
-  <p>เว็บไซต์ที่สร้างด้วย Next.js 15, TypeScript, และ Tailwind CSS</p>
-</div>
+</p>
+
+<h3 align="center">บริษัทให้บริการเทคโนโลยีและซ่อมคอมพิวเตอร์</h3>
+
+<p align="center">เว็บไซต์ที่สร้างด้วย Next.js 15, TypeScript, และ Tailwind CSS</p>
 
 ## ✨ Features
 
