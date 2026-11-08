@@ -9,6 +9,7 @@ const nextConfig: NextConfig & { allowedDevOrigins?: string[] } = {
   // เปิดใช้งาน experimental features
   experimental: {
     optimizePackageImports: ["lucide-react"],
+    optimizeCss: false,
   },
 
   // การตั้งค่า images
