@@ -14,7 +14,6 @@ const nextConfig: NextConfig & { allowedDevOrigins?: string[] } = {
 
   // การตั้งค่า images
   images: {
-    domains: ["localhost"],
     formats: ["image/webp", "image/avif"],
   },
 
